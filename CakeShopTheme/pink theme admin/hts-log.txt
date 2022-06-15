@@ -1,0 +1,26 @@
+HTTrack3.49-2+htsswf+htsjava launched on Sat, 12 Jun 2021 12:58:32 at https://sego.dexignzone.com/xhtml/reviews.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://sego.dexignzone.com/xhtml/reviews.html -O1 "C:\My Web Sites\pink theme" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+12:58:33	Warning: 	Found for https://sego.dexignzone.com/robots.txt
+12:58:33	Warning: 	File has moved from https://sego.dexignzone.com/robots.txt to https://sego.dexignzone.com/xhtml/error-404.html
+12:59:02	Warning: 	Unable to test https://sego.dexignzone.com/xhtml/error-404.html (loop to same filename)
+12:59:02	Warning: 	link is probably looping, type unknown, aborting: https://sego.dexignzone.com/xhtml/error-404.html
+12:59:09	Warning: 	Unable to test https://sego.dexignzone.com/xhtml/error-404.html (loop to same filename)
+12:59:09	Warning: 	link is probably looping, type unknown, aborting: https://sego.dexignzone.com/xhtml/error-404.html
+12:59:10	Warning: 	Unable to test https://sego.dexignzone.com/xhtml/error-404.html (loop to same filename)
+12:59:10	Warning: 	link is probably looping, type unknown, aborting: https://sego.dexignzone.com/xhtml/error-404.html
+12:59:12	Warning: 	Unable to test https://sego.dexignzone.com/xhtml/error-404.html (loop to same filename)
+12:59:12	Warning: 	link is probably looping, type unknown, aborting: https://sego.dexignzone.com/xhtml/error-404.html
+13:02:22	Warning: 	Unable to test https://sego.dexignzone.com/xhtml/error-404.html (loop to same filename)
+13:02:22	Warning: 	link is probably looping, type unknown, aborting: https://sego.dexignzone.com/xhtml/error-404.html
+13:02:22	Warning: 	Unable to test https://sego.dexignzone.com/xhtml/error-404.html (loop to same filename)
+13:02:22	Warning: 	link is probably looping, type unknown, aborting: https://sego.dexignzone.com/xhtml/error-404.html
+13:02:34	Warning: 	Retry after error -4 (No data (connection closed)) at link https://sego.dexignzone.com/xhtml/icons/line-awesome/fonts/la-solid-900.woff2 (from https://sego.dexignzone.com/xhtml/icons/line-awesome/css/line-awesome.min.css)
+
+HTTrack Website Copier/3.49-2 mirror complete in 4 minutes 3 seconds : 338 links scanned, 336 files written (25082664 bytes overall) [21204686 bytes received at 87262 bytes/sec], 4672412 bytes transferred using HTTP compression in 66 files, ratio 14%, 7.6 requests per connection
+(No errors, 15 warnings, 0 messages)
