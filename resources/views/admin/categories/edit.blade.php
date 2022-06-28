@@ -15,6 +15,7 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
+                        @include('admin.includes.alert-message')
                         @include('admin.categories.category_form',[
                             'type' => 'edit'
                         ])

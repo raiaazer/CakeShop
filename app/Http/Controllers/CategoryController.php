@@ -63,8 +63,11 @@ class CategoryController extends Controller
         $request->thumbnail->storeAs('public/categories',$thumbnail);
 
         $validate['thumbnail'] = $thumbnail;
-        Category::create($validate);
-        return redirect()->back()->with('success','Category created successfully.');
+        if(Category::create($validate))
+        {
+            return redirect()->route('category.index')->with('success','Category created successfully.');
+        }
+        return redirect()->back()->with('error','Failed to create category.');
     }
 
     /**
@@ -102,27 +105,24 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        // $validate = $request->validate([
-        //     'name' => ['required','max:100'],
-        //     'slug' => ['required','unique:categories,slug,'.$category->id],
-        //     'status' => ['nullable','in:0,1'],
-        //     'thumbnail' => ['nullable','image']
-        // ]);
-
-        // $validate = $this->validateCategory($request,'update',$category->id);
-
         $validate = $request->validated();
-
-        $thumbnail = $category->thumbnail;
+        $thumbnail = $category->getRawOriginal('thumbnail');
         if($request->hasFile('thumbnail'))
         {
-            // $thumbnail = str()->random(10).'-'.time().'.'.$request->thumbnail->extension();
-            $request->thumbnail->storeAs('public/categories',$thumbnail);
+            $newThumbnail = str()->random(10).'-'.time().'.'.$request->thumbnail->extension();
+            $request->thumbnail->storeAs('public/categories',$newThumbnail);
+            $validate['thumbnail'] = $newThumbnail;
         }
-        $validate['thumbnail'] = $thumbnail;
-        Category::where('id',$category->id)->update($validate);
-        // unlink(storage_path('app/public/categories/'.$thumbnail));
-        return redirect()->route('category.index')->with('success','Category update successfully.');
+        if($category->update($validate))
+        {
+            if(isset($newThumbnail))
+            {
+                @unlink(storage_path('app/public/categories/'.$thumbnail));
+            }
+            
+            return redirect()->route('category.index')->with('success','Category update successfully.');
+        }
+        return redirect()->back()->with('error','Failed to update category.');
     }
 
     /**
@@ -135,7 +135,7 @@ class CategoryController extends Controller
     {
         if($category->delete())
         {
-            @unlink(storage_path('app/public/categories/'.$category->thumbnail));
+            @unlink(storage_path('app/public/categories/'.$category->getRawOriginal('thumbnail')));
             if(request()->ajax())
             {
                 return response()->json(['success'=>'Category deleted successfully.']);
@@ -148,9 +148,6 @@ class CategoryController extends Controller
             return response()->json(['error'=>'Failed to delete category.']);
         }
         return redirect()->back()->with('error','Failed to delete category.');
-
-        // File::delete(storage_path('app/public/categories/'.$category->thumbnail));
-        // Storage::delete('public/categories/'.$category->thumbnail);
     }
 
     public function validateCategory($request,$type,$category = null)

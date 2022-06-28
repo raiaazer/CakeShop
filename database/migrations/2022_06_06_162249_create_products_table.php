@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained('categories');
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->longText('description');
             $table->boolean('status')->default(false);
             $table->integer('quantity')->default(0);

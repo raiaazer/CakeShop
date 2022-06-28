@@ -1,16 +1,12 @@
 @extends('admin.layouts.layout',[
     'use' => array_merge($use,['delete'])
 ])
-{{-- [
-    'title' => 'Categories Listing',
-    'use' => ['datatable']
-] --}}
 
 @section('body')
 <div class="container-fluid">
     <div class="page-titles">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Categories</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Products</a></li>
         </ol>
     </div>
     <!-- row -->
@@ -18,7 +14,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Categories Listing</h4>
+                    <h4 class="card-title">Products Listing</h4>
                 </div>
                 <div class="card-body">
                     @include('admin.includes.alert-message')
@@ -29,24 +25,30 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Slug</th>
-                                    <th>Status</th>
+                                    <th>Price</th>
+                                    <th>Discount Type</th>
+                                    <th>Discount Value</th>
+                                    <th>Actual Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($list as $category)
+                                @foreach ($list as $product)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>
-                                        <img width="50px" src="{{ $category->thumbnail }}" alt="">
-                                        {{ $category->name }}
+                                        <img width="50px" src="{{ $product->getImages()->first() }}" alt="">
+                                        {{ $product->name }}
                                     </td>
-                                    <td>{{ $category->slug }}</td>
-                                    <td>{{ $category->status ? 'Enabled' : 'Disabled' }}</td>
+                                    <td>{{ $product->slug }}</td>
+                                    <td>{{ priceFormat($product->price) }}</td>
+                                    <td>{{ $product->discountType() }}</td>
+                                    <td>{{ $product->discountValue() }}</td>
+                                    <td>{{ priceFormat($product->actualPrice()) }}</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('category.edit',$category->id) }}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <button data-delete-url="{{ route('category.destroy',$category->id) }}" data-ajax="true" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>
+                                            <a href="{{ route('product.edit',$product->id) }}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                            <button data-delete-url="{{ route('product.destroy',$product->id) }}" data-ajax="true" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -57,7 +59,10 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Slug</th>
-                                    <th>Status</th>
+                                    <th>Price</th>
+                                    <th>Discount Type</th>
+                                    <th>Discount Value</th>
+                                    <th>Actual Price</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>

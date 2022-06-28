@@ -13,4 +13,9 @@ class Category extends Model
 
     public $timestamps = false;
 
+    public function getThumbnailAttribute($value)
+    {
+        return asset('storage/categories/'.$value);
+    }
+
 }

@@ -24,15 +24,17 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','min:255'],
-            'slug' => ['required'],
+            'name' => ['required','max:255'],
+            'slug' => ['required','unique:products,slug'.($this->isMethod('PUT') ? ','.$this->product->id : '')],
             'description' => ['required'],
             'price' => ['numeric','min:0'],
             'quantity' => ['integer','min:0'],
-            'discount_type' => ['nullable','in:1,0'],
-            'discount' => ['required_with:discount_type','numeric','min:1','max:'.$this->request->discount_type == 1 ? $this->request->discount : '100'],
+            'discount_type' => ['nullable','required_with:discount','in:flat,percentage'],
+            'discount' => ['nullable','required_with:discount_type','numeric','min:1','max:'.($this->discount_type == 1 ? $this->discount : '100')],
             'status' => ['nullable','in:1,0'],
-            'images' => ['required','image']
+            'images' => [$this->isMethod('PUT') ? 'nullable' : 'required'],
+            'images.*' => ['image'],
+            'category_id' => ['required','exists:categories,id']
         ];
     }
 }
