@@ -15,6 +15,11 @@ class Product extends Model
         'images' => 'array',
     ];
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'category_id');
+    }    
+
     public function getImages()
     {
         $list = collect();
@@ -63,17 +68,11 @@ class Product extends Model
         return $price;
     }
 
-    public static function boot() {
-        parent::boot();
+    // public static function boot() {
+    //     parent::boot();
 
-        static::creating(function ($item) {
-            // $item->price *= 100;
-            // if($item->discount_type == 'flat')
-            // {
-            //     $item->discount *= 100;
-            // }
-        });
-
-    }
+    //     static::creating(function ($item) {
+    //     });
+    // }
 
 }

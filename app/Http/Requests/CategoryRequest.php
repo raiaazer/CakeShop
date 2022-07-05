@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class CategoryRequest extends FormRequest
 {
@@ -30,4 +31,12 @@ class CategoryRequest extends FormRequest
             'thumbnail' => [request()->routeIs('category.update') ? 'nullable' : 'required','image']
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => Str::slug($this->slug),
+        ]);
+    }
+
 }

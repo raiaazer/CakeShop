@@ -13,6 +13,16 @@ class Category extends Model
 
     public $timestamps = false;
 
+    public function products()
+    {
+        return $this->hasMany(Product::class,'category_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', true);
+    }
+
     public function getThumbnailAttribute($value)
     {
         return asset('storage/categories/'.$value);

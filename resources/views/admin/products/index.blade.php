@@ -25,6 +25,7 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Slug</th>
+                                    <th>Category</th>
                                     <th>Price</th>
                                     <th>Discount Type</th>
                                     <th>Discount Value</th>
@@ -41,6 +42,7 @@
                                         {{ $product->name }}
                                     </td>
                                     <td>{{ $product->slug }}</td>
+                                    <td>{{ $product->category->name }}
                                     <td>{{ priceFormat($product->price) }}</td>
                                     <td>{{ $product->discountType() }}</td>
                                     <td>{{ $product->discountValue() }}</td>
@@ -59,6 +61,7 @@
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Slug</th>
+                                    <th>Category</th>
                                     <th>Price</th>
                                     <th>Discount Type</th>
                                     <th>Discount Value</th>

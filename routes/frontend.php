@@ -2,17 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('theme.index');
-})->name('home');
+use App\Http\Controllers\Frontend\{HomeController,ProductsController};
+
+Route::get('/', [HomeController::class,'index'])->name('home');
 
 Route::get('product-details', function () {
     return view('theme.product-details');
 })->name('product-detail');
 
-Route::get('products', function () {
-    return view('theme.products');
-})->name('products');
+Route::get('products', [ProductsController::class,'index'])->name('products');
 
 Route::get('cart', function () {
     return view('theme.cart');

@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $data = [
-            'list' => Product::get(),
+            'list' => Product::with('category')->get(),
             'use' => ['datatable'],
             'title' => 'Products Listing'
         ];
