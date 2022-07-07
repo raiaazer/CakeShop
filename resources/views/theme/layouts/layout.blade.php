@@ -6,13 +6,13 @@
         @include('theme.includes.header')
 
         @include('theme.includes.side_cart')
-        
+
         @include('theme.includes.mobile-menu')
 
         @yield('body')
 
         @include('theme.includes.footer')
-        
+
         <form method="POST" id="logout" action="{{ route('logout') }}">
             @csrf
         </form>
@@ -40,11 +40,16 @@
 <script src="assets/js/plugins/scrollup.js"></script>
 <script src="assets/js/plugins/ajax-mail.js"></script> -->
 
+    <script>
+        const login = {{ auth()->check() ? 'true' : 'false' }};
+        const loginRoute = "{{ route('login') }}";
+    </script>
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <script src="{{ userAssets('assets/js/vendor/vendor.min.js') }}"></script>
     <script src="{{ userAssets('assets/js/plugins/plugins.min.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ userAssets('assets/js/main.js') }}"></script>
+    {{-- <script src="{{ userAssets('assets/js/custom.js') }}"></script> --}}
     @yield('script')
 </body>
 </html>

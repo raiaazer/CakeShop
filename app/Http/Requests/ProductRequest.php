@@ -37,4 +37,12 @@ class ProductRequest extends FormRequest
             'category_id' => ['required','exists:categories,id']
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'slug' => \Str::slug($this->slug),
+        ]);
+    }
+
 }

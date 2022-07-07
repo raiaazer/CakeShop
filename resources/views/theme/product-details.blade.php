@@ -1,4 +1,5 @@
 @extends('theme.layouts.layout')
+
 @section('body')
 <div class="product-details-area product-details-bg slider-mt-7">
     <div class="container">
@@ -6,59 +7,23 @@
             <div class="col-xl-6 col-lg-6 col-md-12">
                 <div class="product-details-tab-wrap">
                     <div class="product-details-tab-large tab-content pt-40 text-center">
-                        <div class="tab-pane active" id="pro-details1">
+                        @foreach($product->getImages() as $image)
+                        <div class="tab-pane {{ $loop->first ? 'active' : '' }}" id="pro-details{{ $loop->index }}">
                             <div class="product-details-2-img ">
-                                <img src="{{ asset('theme_asset') }}/assets/images/product-details/product-details-slider-1.png" alt="">
+                                <img src="{{ $image }}" alt="">
                             </div>
                         </div>
-                        <div class="tab-pane" id="pro-details2">
-                            <div class="product-details-2-img ">
-                                <img src="{{ asset('theme_asset') }}/assets/images/product-details/product-details-slider-2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="pro-details3">
-                            <div class="product-details-2-img">
-                                <img src="{{ asset('theme_asset') }}/assets/images/product-details/product-details-slider-3.png" alt="">
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="pro-details4">
-                            <div class="product-details-2-img ">
-                                <img src="{{ asset('theme_asset') }}/assets/images/product-details/product-details-slider-4.png" alt="">
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="pro-details5">
-                            <div class="product-details-2-img ">
-                                <img src="{{ asset('theme_asset') }}/assets/images/product-details/product-details-slider-5.png" alt="">
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="pro-details6">
-                            <div class="product-details-2-img ">
-                                <img src="{{ asset('theme_asset') }}/assets/images/product-details/product-details-slider-2.png" alt="">
-                            </div>
-                        </div>
+                        @endforeach
                         <div class="product-details-shape pro-dec-shape1">
                             <img src="{{ asset('theme_asset') }}/assets/images/product-details/product-details-shape.png" alt="">
                         </div>
                     </div>
                     <div class="product-details-tab-small nav">
-                        <a class="active" href="#pro-details1">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product-details/small-7.jpg" alt="">
+                        @foreach($product->getImages() as $image)
+                        <a class="{{ $loop->first ? 'active' : '' }}" href="#pro-details{{ $loop->index }}">
+                            <img src="{{ $image }}" alt="">
                         </a>
-                        <a href="#pro-details2">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product-details/small-8.jpg" alt="">
-                        </a>
-                        <a href="#pro-details3">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product-details/small-1.jpg" alt="">
-                        </a>
-                        <a href="#pro-details4">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product-details/small-5.jpg" alt="">
-                        </a>
-                        <a href="#pro-details5">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product-details/small-3.jpg" alt="">
-                        </a>
-                        <a href="#pro-details6">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product-details/small-8.jpg" alt="">
-                        </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -83,11 +48,14 @@
                             <span>242 orders</span>
                         </div>
                     </div>
-                    <p>Seamlessly predominate enterprise metrics without performance based process improvements.
-                    </p>
+                    <p>{{ $product->description }}</p>
                     <div class="pro-details-price">
-                        <span>US $75.72</span>
-                        <span class="old-price">US $95.72</span>
+                        @if($product->discount_type)
+                        <span>{{ priceFormat($product->actualPrice()) }}</span>
+                        <span class="old-price">{{ priceFormat($product->price) }}</span>
+                        @else
+                        <span>{{ priceFormat($product->price) }}</span>
+                        @endif
                     </div>
                     <!-- <div class="pro-details-color-wrap">
                         <span>Color:</span>
@@ -121,6 +89,7 @@
                             <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
                         </div>
                     </div>
+                    {{--
                     <div class="product-details-meta">
                         <ul>
                             <li><span>Model:</span> <a href="#">Odsy-1000</a></li>
@@ -129,23 +98,34 @@
                             </li>
                         </ul>
                     </div>
+                    --}}
                     <div class="pro-details-action-wrap">
                         <div class="pro-details-buy-now">
                             <a href="p_or_d.html">Continue</a>
                         </div>
                         <div class="pro-details-action">
-                            <a title="Add to Cart" href="#"><i class="icon-basket"></i></a>
-                            <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
-                            <a class="social" title="Social" href="#"><i class="icon-share"></i></a>
+                            <a title="Add to Cart" href="#">
+                                <i class="icon-basket"></i>
+                            </a>
+                            <a title="Add to Wishlist" href="#">
+                                <i class="icon-heart"></i>
+                            </a>
+                            <a class="social" title="Social" href="#">
+                                <i class="icon-share"></i>
+                            </a>
                             <div class="product-dec-social">
-                                <a class="facebook" title="Facebook" href="#"><i
-                                        class="icon-social-facebook-square"></i></a>
-                                <a class="twitter" title="Twitter" href="#"><i
-                                        class="icon-social-twitter"></i></a>
-                                <a class="instagram" title="Instagram" href="#"><i
-                                        class="icon-social-instagram"></i></a>
-                                <a class="pinterest" title="Pinterest" href="#"><i
-                                        class="icon-social-pinterest"></i></a>
+                                <a class="facebook" title="Facebook" href="#">
+                                    <i class="icon-social-facebook-square"></i>
+                                </a>
+                                <a class="twitter" title="Twitter" href="#">
+                                    <i class="icon-social-twitter"></i>
+                                </a>
+                                <a class="instagram" title="Instagram" href="#">
+                                    <i class="icon-social-instagram"></i>
+                                </a>
+                                <a class="pinterest" title="Pinterest" href="#">
+                                    <i class="icon-social-pinterest"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -155,7 +135,7 @@
     </div>
 </div>
 <br><br><br>
-<!-- <div class="description-review-wrapper pt-160 pb-155">
+{{-- <div class="description-review-wrapper pt-160 pb-155">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -319,184 +299,97 @@
             </div>
         </div>
     </div>
-</div> -->
+</div> --}}
 <div class="product-area pb-155">
     <div class="container">
         <div class="section-title-8 mb-65">
             <h2>You May Like Also</h2>
         </div>
         <div class="product-slider-active-4">
+            @foreach ($relatedProducts as $productItem)
             <div class="product-wrap-plr-1">
                 <div class="product-wrap">
                     <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product/product-151.jpg" alt="">
+                        <a href="{{ route('product-details',$productItem->slug) }}">
+                            <img src="{{ $productItem->getImages()->first() }}" alt="">
                         </a>
                     </div>
                     <div class="product-content">
-                        <h4><a href="product-details.html">Product Title</a></h4>
+                        <h4><a href="{{ route('product-details',$productItem->slug) }}">{{ $productItem->name }}</a></h4>
                         <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
+                            @if($product->discount_type)
+                            <span>{{ priceFormat($product->actualPrice()) }}</span>
+                            <span class="old-price">{{ priceFormat($product->price) }}</span>
+                            @else
+                            <span>{{ priceFormat($product->price) }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="product-action-position-1 text-center">
                         <div class="product-content">
-                            <h4><a href="product-details.html">Product Title</a></h4>
+                            <h4><a href="{{ route('product-details',$productItem->slug) }}">{{ $productItem->name }}</a></h4>
                             <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
+                                @if($product->discount_type)
+                                <span>{{ priceFormat($product->actualPrice()) }}</span>
+                                <span class="old-price">{{ priceFormat($product->price) }}</span>
+                                @else
+                                <span>{{ priceFormat($product->price) }}</span>
+                                @endif
                             </div>
                         </div>
                         <div class="product-action-wrap">
                             <div class="product-action-cart">
                                 <button title="Add to Cart">Add to cart</button>
                             </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i
-                                    class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
+                            <button data-toggle="modal" data-target="#product-{{ $productItem->id }}-details">
+                                <i class="icon-zoom"></i>
+                            </button>
+                            {{-- <button title="Add to Compare">
+                                <i class="icon-compare"></i>
+                            </button> --}}
+                            <button class="wishlist" data-product="{{ $productItem->id }}" title="Add to Wishlist">
+                                <i class="icon-heart-empty"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="product-wrap-plr-1">
-                <div class="product-wrap">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product/product-152.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Product Title</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Product Title</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i
-                                    class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrap-plr-1">
-                <div class="product-wrap">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product/product-153.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Product Title</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Product Title</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i
-                                    class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrap-plr-1">
-                <div class="product-wrap">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product/product-154.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Product Title</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Product Title</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i
-                                    class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-wrap-plr-1">
-                <div class="product-wrap">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="{{ asset('theme_asset') }}/assets/images/product/product-152.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Product Title</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Product Title</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i
-                                    class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
+
+@foreach ($relatedProducts as $product)
+    @include('theme.pages.home.product_details_modal')
+@endforeach
+
+@endsection
+
+@section('script')
+<script>
+    $(".wishlist").click(function(){
+        var button = $(this);
+        var id = button.data("product");
+        $.ajax({
+            type: "POST",
+            url: "{{ route('wishlist.store') }}",
+            data: {
+                _token: "{{ csrf_token() }}",
+                product: id
+            },
+            beforeSend: function()
+            {
+                button.children("i").attr("class","icofont-spinner");
+            },
+            success: function(res)
+            {
+                button.children("i").attr("class","icon-heart-empty");
+            },
+            error: function(e)
+            {
+
+            }
+        });
+    });
+</script>
 @endsection

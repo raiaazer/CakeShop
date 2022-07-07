@@ -15,7 +15,7 @@
 
     @include('theme.pages.home.product_area')
 
-    @include('theme.pages.home.special_products')
+    {{-- @include('theme.pages.home.special_products') --}}
 
     @include('theme.pages.home.products')
 

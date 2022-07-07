@@ -19,7 +19,7 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="product-wrap mb-90">
                             <div class="product-img position-relative product-img-zoom mb-30">
-                                <a href="{{ route('product-detail') }}">
+                                <a href="{{ route('product-details',$product->slug) }}">
                                     <img src="{{ $product->getImages()->first() }}" alt="">
                                 </a>
                                 <div class="product-action-2">
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             <div class="product-content text-center">
-                                <h4><a href="{{ route('product-detail') }}">{{ $product->name }}</a></h4>
+                                <h4><a href="{{ route('product-details',$product->slug) }}">{{ $product->name }}</a></h4>
                                 <div class="product-price">
                                     @if($product->discount_type)
                                     <span>{{ priceFormat($product->actualPrice()) }}</span>

@@ -14,7 +14,7 @@
                         cheese buttercream</h4>
                     <div class="product-action-wrap-2">
                         <div class="btn-style-3 btn-hover">
-                            <a class="btn3-ptb-4 btn3-bg-chocolate animated" href="{{ route('product-detail') }}">Pre
+                            <a class="btn3-ptb-4 btn3-bg-chocolate animated" href="{{ 'javascript:void(0);' }}">Pre
                                 Order</a>
                         </div>
                         <div class="product-action-wrap-2-right">

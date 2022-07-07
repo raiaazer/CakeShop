@@ -49,14 +49,6 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        // $validate = $request->validate([
-        //     'name' => ['required','max:100'],
-        //     'slug' => ['required','unique:categories,slug'],
-        //     'status' => ['nullable','in:0,1'],
-        //     'thumbnail' => ['required','image']
-        // ]);
-        // $validate = $this->validateCategory($request,'store');
-        
         $validate = $request->validated();
 
         $thumbnail = str()->random(10).'-'.time().'.'.$request->thumbnail->extension();

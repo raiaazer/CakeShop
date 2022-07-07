@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
 class CategoryRequest extends FormRequest
 {
@@ -35,7 +34,7 @@ class CategoryRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'slug' => Str::slug($this->slug),
+            'slug' => \Str::slug($this->slug),
         ]);
     }
 

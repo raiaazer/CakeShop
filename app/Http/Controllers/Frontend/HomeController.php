@@ -21,9 +21,6 @@ class HomeController extends Controller
             'products' => $products
         ];
 
-        $data['categoryOne'] = $categories->random(1)->first();
-        $data['categoryTwo'] = $categories->where('id','!=',$data['categoryOne']->id)->random(1)->first();
-        $data['categoryThree'] = $categories->whereNotIn('id',[$data['categoryOne']->id,$data['categoryTwo']->id])->random(1)->first();
         return view('theme.index',$data);
     }
 
